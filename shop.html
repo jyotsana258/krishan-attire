@@ -66,7 +66,7 @@
   </nav>
 
   <h1>Our Thakur Ji Dresses</h1>
-  <<div class="card">
+  <div class="card">
   <img src="dress1.jpeg" alt="Thakur Ji Dress">
   <h3>Handmade Peacock Dress (KA01)</h3>
   <p>
@@ -82,7 +82,7 @@
 
   <p>Price: ₹<span id="priceDisplay">600</span></p>
 
-  <a id="buyBtn" href="https://wa.me/919996210141?text=Hi! I want to buy the Pink Peacock Dress size 2 for ₹299 from Krishan Attire." 
+  <a id="buyBtn" href="https://wa.me/919996210141?text=Hi! I want to buy the Pink Peacock Dress size 2 for 600 from Krishan Attire." 
      target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
     Buy on WhatsApp
   </a>
@@ -100,7 +100,7 @@ function updatePrice() {
   // Update WhatsApp link with size and price in message
   const buyBtn = document.getElementById('buyBtn');
   const phone = '919996210141'; // Replace with your number
-  const text = encodeURIComponent(`Hi! I want to buy the Pink Peacock Dress size ${size} for ₹${price} from Krishan Attire.`);
+  const text = encodeURIComponent(`Hi! I want to buy the Handmade Peacock Dress size ${size} for ₹${price} from Krishan Attire.`);
   
   buyBtn.href = `https://wa.me/${phone}?text=${text}`;
 }
