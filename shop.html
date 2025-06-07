@@ -66,13 +66,46 @@
   </nav>
 
   <h1>Our Thakur Ji Dresses</h1>
-  <div class="products">
-    <div class="card">
-      <img src="dress1.jpeg" alt="Pink Peacock Dress">
-      <h3>Pink Peacock Dress</h3>
-      <p>₹299 – Elegant embroidery work</p>
-      <a href="https://wa.me/9996210141?text=Hi! I want to buy the Pink Peacock Dress from Krishan Attire.">Buy on WhatsApp</a>
-    </div>
+  <<div class="card">
+  <img src="dress1.jpeg" alt="Thakur Ji Dress">
+  <h3>Handmade Peacock Dress (KA01)</h3>
+  <p>
+    Size: 
+    <select id="sizeSelect" onchange="updatePrice()">
+      <option value="2" data-price="600">2</option>
+      <option value="3" data-price="600">3</option>
+      <option value="4" data-price="800">4</option>
+      <option value="5" data-price="1000">5</option>
+      <option value="6" data-price="1190">6</option>
+    </select>
+  </p>
+
+  <p>Price: ₹<span id="priceDisplay">600</span></p>
+
+  <a id="buyBtn" href="https://wa.me/919996210141?text=Hi! I want to buy the Pink Peacock Dress size 2 for ₹299 from Krishan Attire." 
+     target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+    Buy on WhatsApp
+  </a>
+</div>
+
+<script>
+function updatePrice() {
+  const select = document.getElementById('sizeSelect');
+  const price = select.options[select.selectedIndex].getAttribute('data-price');
+  const size = select.value;
+  
+  // Update price display
+  document.getElementById('priceDisplay').textContent = price;
+  
+  // Update WhatsApp link with size and price in message
+  const buyBtn = document.getElementById('buyBtn');
+  const phone = '919996210141'; // Replace with your number
+  const text = encodeURIComponent(`Hi! I want to buy the Pink Peacock Dress size ${size} for ₹${price} from Krishan Attire.`);
+  
+  buyBtn.href = `https://wa.me/${phone}?text=${text}`;
+}
+</script>
+
 
     <!-- Add more dresses below like this -->
   </div>
