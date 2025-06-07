@@ -17,8 +17,14 @@
       font-size: 20px;
       margin-bottom: 30px;
     }
-    img {
-      max-width: 300px;
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .gallery img {
+      max-width: 200px;
       border-radius: 15px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
@@ -27,6 +33,11 @@
 <body>
   <h1>Welcome to Krishan Attire</h1>
   <p>Your destination for beautifully handcrafted <strong>Thakur Ji Dresses</strong>!</p>
-  <img src="dress1.jpeg" alt="Thakur Ji Dress">
+
+  <div class="gallery">
+    <img src="dress1.jpeg" alt="Thakur Ji Dress 1">
+    <img src="dress2.jpeg" alt="Thakur Ji Dress 2">
+    <img src="dress3.jpeg" alt="Thakur Ji Dress 3">
+  </div>
 </body>
 </html>
