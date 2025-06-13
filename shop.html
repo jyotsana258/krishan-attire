@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Shop | Krishan Attire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Playfair Display', serif;
@@ -46,6 +47,7 @@
     }
     .card img {
       width: 100%;
+      height: auto;
       border-radius: 10px;
     }
     .card a {
@@ -56,6 +58,27 @@
       padding: 10px 20px;
       border-radius: 5px;
       text-decoration: none;
+    }
+    
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .card {
+        width: 90%;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .card img {
+        width: 100%;
+        height: auto;
+      }
+      .products {
+        gap: 20px;
+      }
     }
   </style>
 </head>
