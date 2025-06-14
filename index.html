@@ -2,119 +2,291 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Krishan Attire - Featured Products</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishan Attire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #0b1d36;
-      font-family: sans-serif;
       margin: 0;
-      padding: 0;
-      color: white;
+      font-family: 'Playfair Display', serif;
+      background-color: #0e1c2f;
+      color: #f9e4b7;
     }
 
-    h2 {
-      text-align: center;
-      color: gold;
-      font-size: 2rem;
-      margin: 20px 0;
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background-color: #0e1c2f;
+      padding: 15px;
+      border-bottom: 1px solid gold;
     }
 
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 16px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: auto;
+    nav a {
+      color: #f9e4b7;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
     }
 
-    .product-card {
+    .slider {
       position: relative;
+      width: 100vw;
+      max-width: 100%;
       overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      height: 90vh;
     }
 
-    .product-card img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .slides {
+      display: flex;
+      width: 300%;
+      animation: slide 15s infinite;
+      transition: transform 2s ease-in-out;
+    }
+
+    .slides img {
+      width: 100vw;
+      height: 90vh;
       object-fit: cover;
     }
 
-    .product-title {
-      position: absolute;
-      bottom: 10px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-weight: bold;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 4px;
-      font-size: 14px;
-      text-shadow: 1px 1px 3px black;
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      33% { transform: translateX(-100vw); }
+      66% { transform: translateX(-200vw); }
+      100% { transform: translateX(0); }
     }
 
-    /* Responsive Typography */
-    @media (min-width: 768px) {
-      .product-title {
-        font-size: 16px;
+    .hero-text {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      border: 2px solid #d4af37;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      color: #ffd700;
+    }
+
+    .hero-text p {
+      font-size: 20px;
+    }
+
+    .section {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .section h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      color: #ffd700;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .category-box {
+      flex: 1 1 22%;
+      aspect-ratio: 1 / 1;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .category-box:hover {
+      transform: scale(1.05);
+    }
+
+    .category-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .category-name {
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    @media (max-width: 768px) {
+      .category-box {
+        flex: 1 1 48%;
+        aspect-ratio: 1 / 1;
       }
+
+      .category-name {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .category-box {
+        flex: 1 1 100%;
+        aspect-ratio: 1 / 1;
+      }
+    }
+
+    .about {
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-size: 28px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
   </style>
 </head>
 <body>
 
-  <h2>Featured Products</h2>
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html">About</a>
+  </nav>
 
-  <div class="grid-container">
-    <div class="product-card">
-      <img src="dress.jpg" alt="Dresses">
-      <div class="product-title">DRESSES</div>
+  <!-- HERO SLIDER -->
+  <div class="slider">
+    <div class="slides">
+      <img src="hero1.png" alt="Dress Image 1">
+      <img src="hero2.png" alt="Dress Image 2">
+      <img src="hero3.png" alt="Dress Image 3">
     </div>
-    <div class="product-card">
-      <img src="kalangi.jpg" alt="Handmade Kalangi">
-      <div class="product-title">HANDMADE KALANGI</div>
-    </div>
-    <div class="product-card">
-      <img src="haar.jpg" alt="Handmade Haar">
-      <div class="product-title">HANDMADE HAAR</div>
-    </div>
-    <div class="product-card">
-      <img src="pagdi.jpg" alt="Pagdi">
-      <div class="product-title">PAGDI</div>
-    </div>
-    <div class="product-card">
-      <img src="pankhi.jpg" alt="Handmade Pankhi">
-      <div class="product-title">HANDMADE PANKHI</div>
-    </div>
-    <div class="product-card">
-      <img src="hairs.jpg" alt="Hairs">
-      <div class="product-title">HAIRS</div>
-    </div>
-    <div class="product-card">
-      <img src="chandrika.jpg" alt="Handmade Chandrika">
-      <div class="product-title">HANDMADE CHANDRIKA</div>
-    </div>
-    <div class="product-card">
-      <img src="bansuri.jpg" alt="Handmade Bansuri">
-      <div class="product-title">HANDMADE BANSURI</div>
-    </div>
-    <div class="product-card">
-      <img src="morchadi.jpg" alt="Morchadi">
-      <div class="product-title">MORCHADI</div>
-    </div>
-    <div class="product-card">
-      <img src="decor.jpg" alt="Decor">
-      <div class="product-title">DECOR</div>
-    </div>
-    <div class="product-card">
-      <img src="jewellery.jpg" alt="Jewellery">
-      <div class="product-title">JEWELLERY</div>
+    <div class="hero-text">
+      <h1>Exquisite Dresses for God Idols</h1>
+      <p>Where tradition meets elegance — handcrafted with devotion.</p>
     </div>
   </div>
 
+  <!-- CATEGORY SECTION -->
+  <div class="section">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <a href="dress.html" class="category-link">
+        <div class="category-box" style="background-image: url('dress.jpeg');">
+          <div class="category-name">DRESSES</div>
+        </div>
+      </a>
+
+      <a href="kalangi.html" class="category-link">
+        <div class="category-box" style="background-image: url('kalangi.jpeg');">
+          <div class="category-name">HANDMADE KALANGI</div>
+        </div>
+      </a>
+
+      <a href="haar.html" class="category-link">
+        <div class="category-box" style="background-image: url('haar.jpeg');">
+          <div class="category-name">HANDMADE HAAR</div>
+        </div>
+      </a>
+
+      <a href="pagdi.html" class="category-link">
+        <div class="category-box" style="background-image: url('pagdi.jpeg');">
+          <div class="category-name">PAGDI</div>
+        </div>
+      </a>
+
+      <a href="pankhi.html" class="category-link">
+        <div class="category-box" style="background-image: url('pankhi.jpeg');">
+          <div class="category-name">HANDMADE PANKHI</div>
+        </div>
+      </a>
+
+      <a href="hairs.html" class="category-link">
+        <div class="category-box" style="background-image: url('hair.jpeg');">
+          <div class="category-name">HAIRS</div>
+        </div>
+      </a>
+
+      <a href="chandrika.html" class="category-link">
+        <div class="category-box" style="background-image: url('chandrika.jpeg');">
+          <div class="category-name">HANDMADE CHANDRIKA</div>
+        </div>
+      </a>
+
+      <a href="bansuri.html" class="category-link">
+        <div class="category-box" style="background-image: url('bansuri.jpeg');">
+          <div class="category-name">HANDMADE BANSURI</div>
+        </div>
+      </a>
+
+      <a href="kangan.html" class="category-link">
+        <div class="category-box" style="background-image: url('kangan.jpeg');">
+          <div class="category-name">HANDMADE KANGAN</div>
+        </div>
+      </a>
+
+      <a href="morchadi.html" class="category-link">
+        <div class="category-box" style="background-image: url('morchadi.jpeg');">
+          <div class="category-name">MORCHADI</div>
+        </div>
+      </a>
+
+      <a href="decor.html" class="category-link">
+        <div class="category-box" style="background-image: url('decor.jpeg');">
+          <div class="category-name">DECOR</div>
+        </div>
+      </a>
+
+      <a href="jwellery.html" class="category-link">
+        <div class="category-box" style="background-image: url('jwellery.jpeg');">
+          <div class="category-name">JWELLERY</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ABOUT US -->
+  <div class="section">
+    <h2>About Us</h2>
+    <div class="about">
+      Welcome to <strong>Krishan Attire</strong>, where tradition meets elegance in our handcrafted dresses for god idols. Each dress is made with devotion, detail, and cultural richness. Order via WhatsApp with ease.
+    </div>
+  </div>
+
+  <!-- WHATSAPP FLOATING ICON -->
+  <a href="https://wa.me/919996210141" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    💬
+  </a>
+
 </body>
 </html>
-
