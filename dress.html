@@ -60,10 +60,23 @@
     }
 
     a.back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px; /* or right: 20px if you want it on the right */
       color: white;
-      display: block;
-      margin: 10px 20px;
       text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    a.back-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
     }
   </style>
 </head>
