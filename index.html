@@ -99,7 +99,7 @@
     }
 
     .category-box {
-      width: 22%; /* Default for large screen - 4 per row approx */
+      width: 22%;
       height: 150px;
       background-size: cover;
       background-position: center;
@@ -112,14 +112,13 @@
       justify-content: center;
     }
 
-    
     .category-box::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.4); /* Dark transparent layer */
+      background-color: rgba(0, 0, 0, 0.4);
     }
-    
+
     .category-name {
       color: white;
       font-weight: bold;
@@ -153,48 +152,71 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
-    /* Responsive Hero Text */
+    /* Tablets and small screens */
     @media (max-width: 768px) {
-    nav {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    nav a {
-      font-size: 16px;
-    }
-  
-    .hero-text {
-      padding: 20px;
-      top: 15%;
-    }
-  
-    .hero-text h1 {
-      font-size: 26px;
-    }
-  
-    .hero-text p {
-      font-size: 14px;
-    }
-  
-    .section h2 {
-      font-size: 24px;
-    }
-  
-    .category-box {
-      width: 45%;
-      height: 140px;
-    }
-  
-    .category-name {
-      font-size: 14px;
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav a {
+        font-size: 16px;
+      }
+
+      .hero-text {
+        padding: 20px;
+        top: 15%;
+      }
+
+      .hero-text h1 {
+        font-size: 26px;
+      }
+
+      .hero-text p {
+        font-size: 14px;
+      }
+
+      .section h2 {
+        font-size: 24px;
+      }
+
+      .category-box {
+        width: 45%;
+        height: 140px;
+      }
+
+      .category-name {
+        font-size: 14px;
+      }
+
+      .about {
+        font-size: 16px;
+        padding: 0 10px;
+      }
     }
 
-  .about {
-    font-size: 16px;
-    padding: 0 10px;
-  }
-}
+    /* Ultra large screens */
+    @media (min-width: 1400px) {
+      .category-box {
+        width: 18%;
+      }
+
+      .hero-text h1 {
+        font-size: 60px;
+      }
+
+      .hero-text p {
+        font-size: 24px;
+      }
+
+      .section h2 {
+        font-size: 42px;
+      }
+
+      .about {
+        font-size: 20px;
+      }
+    }
 
   </style>
 </head>
@@ -221,83 +243,83 @@
   </div>
 
   <!-- CATEGORY SECTION -->
-  <div class= "section">
+  <div class="section">
     <h2>Featured Products</h2>
-    <div class= "product-grid">
+    <div class="product-grid">
       <a href="dress.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('dress.jpeg');">
-          <div class= "category-name">DRESSES</div>
+        <div class="category-box" style="background-image: url('dress.jpeg');">
+          <div class="category-name">DRESSES</div>
         </div>
       </a>
 
       <a href="kalangi.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('kalangi.jpeg');">
-          <div class= "category-name">HANDMADE KALANGI</div>
+        <div class="category-box" style="background-image: url('kalangi.jpeg');">
+          <div class="category-name">HANDMADE KALANGI</div>
         </div>
       </a>
 
       <a href="haar.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('mala.jpeg');">
-          <div class= "category-name">HANDMADE HAAR</div>
+        <div class="category-box" style="background-image: url('mala.jpeg');">
+          <div class="category-name">HANDMADE HAAR</div>
         </div>
       </a>
 
       <a href="pagdi.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('pagdi.jpeg');">
-          <div class= "category-name">PAGDI</div>
+        <div class="category-box" style="background-image: url('pagdi.jpeg');">
+          <div class="category-name">PAGDI</div>
         </div>
       </a>
 
       <a href="pankhi.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('pankhi.jpeg');">
-          <div class= "category-name">HANDMADE PANKHI</div>
+        <div class="category-box" style="background-image: url('pankhi.jpeg');">
+          <div class="category-name">HANDMADE PANKHI</div>
         </div>
       </a>
 
       <a href="hairs.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('hair.jpeg');">
-          <div class= "category-name">HAIRS</div>
+        <div class="category-box" style="background-image: url('hair.jpeg');">
+          <div class="category-name">HAIRS</div>
         </div>
       </a>
 
       <a href="chandrika.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('chandrika.jpeg');">
-          <div class= "category-name">HANDMADE CHANDRIKA</div>
+        <div class="category-box" style="background-image: url('chandrika.jpeg');">
+          <div class="category-name">HANDMADE CHANDRIKA</div>
         </div>
       </a>
-      
+
       <a href="bansuri.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('bansuri.jpeg');">
-          <div class= "category-name">HANDMADE BANSURI</div>
+        <div class="category-box" style="background-image: url('bansuri.jpeg');">
+          <div class="category-name">HANDMADE BANSURI</div>
         </div>
       </a>
 
       <a href="kangan.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('kangan.jpeg');">
-          <div class= "category-name">HANDMADE KANGAN</div>
+        <div class="category-box" style="background-image: url('kangan.jpeg');">
+          <div class="category-name">HANDMADE KANGAN</div>
         </div>
       </a>
 
       <a href="morchadi.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('morchadi.jpeg');">
-          <div class= "category-name">MORCHADI</div>
+        <div class="category-box" style="background-image: url('morchadi.jpeg');">
+          <div class="category-name">MORCHADI</div>
         </div>
       </a>
 
       <a href="decor.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('decor.jpeg');">
-          <div class= "category-name">DECOR</div>
+        <div class="category-box" style="background-image: url('decor.jpeg');">
+          <div class="category-name">DECOR</div>
         </div>
       </a>
 
       <a href="jwellery.html" class="category-link">
-        <div class= "category-box" style= "background-image: url('jwellery.jpeg');">
-          <div class= "category-name">JWELLERY</div>
+        <div class="category-box" style="background-image: url('jwellery.jpeg');">
+          <div class="category-name">JWELLERY</div>
         </div>
       </a>
     </div>
   </div>
-  
+
   <!-- ABOUT US -->
   <div class="section">
     <h2>About Us</h2>
@@ -313,4 +335,3 @@
 
 </body>
 </html>
-
