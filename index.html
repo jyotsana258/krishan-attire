@@ -100,12 +100,13 @@
 
     .category-box {
       width: 22%;
-      height: 150px;
+      max-width: 230px;
+      aspect-ratio: 1 / 1; /* keeps box square */
       background-size: cover;
       background-position: center;
       border-radius: 10px;
       position: relative;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -118,11 +119,11 @@
       inset: 0;
       background-color: rgba(0, 0, 0, 0.4);
     }
-
+    
     .category-name {
       color: white;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
       position: relative;
       z-index: 1;
       text-align: center;
