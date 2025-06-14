@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krishan Attire - Dresses</title>
+  <style>
+    body {
+      background-color: #0b1d36;
+      font-family: sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #112244;
+    }
+
+    h1 {
+      color: gold;
+      margin: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .card-title {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 5px;
+      font-weight: bold;
+      font-size: 14px;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    a.back-link {
+      color: white;
+      display: block;
+      margin: 10px 20px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DRESSES</h1>
+  </header>
+
+  <a href="index.html" class="back-link">←</a>
+
+  <div class="grid">
+    <div class="card">
+      <img src="dress1.jpg" alt="Dress 1">
+      <div class="card-title">Red Stone Dress</div>
+    </div>
+    <div class="card">
+      <img src="dress2.jpg" alt="Dress 2">
+      <div class="card-title">Peacock Design Dress</div>
+    </div>
+    <div class="card">
+      <img src="dress3.jpg" alt="Dress 3">
+      <div class="card-title">Blue Embroidery Dress</div>
+    </div>
+    <!-- Add more dresses below -->
+  </div>
+
+</body>
+</html>
 
