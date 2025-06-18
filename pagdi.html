@@ -251,7 +251,7 @@ document.querySelectorAll('.card').forEach(card => {
 
     priceDisplay.textContent = price;
 
-    const text = encodeURIComponent`(Hi! I want to buy the ${pagdiName} size ${size} for ₹${price} from Krishan Attire.`);
+    const text = encodeURIComponent(`Hi! I want to buy the ${pagdiName} size ${size} for ₹${price} from Krishan Attire.`);
     buyBtn.href = `https://wa.me/${phone}?text=${text}`;
   }
 
