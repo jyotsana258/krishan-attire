@@ -33,7 +33,7 @@
       margin: auto;
     }
 
-    card {
+    .card {
       opacity: 0;
       transform: translateY(30px);
       animation: fadeInUp 0.6s ease forwards;
@@ -119,8 +119,6 @@
 
     a.back-link:hover {
       background: rgba(255, 255, 255, 0.2);
-    }
-
     }
   </style>
 </head>
@@ -261,35 +259,17 @@
   </div>
   
 <script>
-// Your WhatsApp phone number (with country code, no + sign)
-const phone = '919996210141';
+  const phone = '919996210141';
 
-// For each card, update price and WhatsApp link when size changes
-document.querySelectorAll('.card').forEach(card => {
-  // const select = card.querySelector('.sizeSelect');
-  const priceDisplay = card.querySelector('.priceDisplay');
-  const buyBtn = card.querySelector('.buyBtn');
-  const kalangiName = card.querySelector('h3').textContent.trim();
+  document.querySelectorAll('.card').forEach(card => {
+    const buyBtn = card.querySelector('.buyBtn');
+    const kalangiName = card.querySelector('h3').textContent.trim();
+    const price = card.querySelector('p').textContent.replace('Price: ₹', '').trim();
 
-  function update() {
-    const selectedOption = select.options[select.selectedIndex];
-    const price = selectedOption.getAttribute('data-price');
-    // const size = select.value;
-
-    priceDisplay.textContent = price;
-
-    const text = encodeURIComponent(Hi! I want to buy the ${kalangiName} for ₹${price} from Krishan Attire.);
-    buyBtn.href = https://wa.me/${phone}?text=${text};
-  }
-
-  // Initialize button on page load
-  update();
-
-  // Update when user changes size
-  select.addEventListener('change', update);
-});
+    const text = encodeURIComponent(`Hi! I want to buy the ${kalangiName} for ₹${price} from Krishan Attire.`);
+    buyBtn.href = `https://wa.me/${phone}?text=${text}`;
+  });
 </script>
-
-
+  
 </body>
 </html> 
