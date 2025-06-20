@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krishan Attire - Dresses</title>
+  <style>
+    body {
+      background-color: #0b1d36;
+      font-family: sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #112244;
+    }
+
+    h1 {
+      color: gold;
+      margin: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.4s; }
+    .card:nth-child(3) { animation-delay: 0.6s; }
+    .card:nth-child(4) { animation-delay: 0.8s; }
+    .card:nth-child(5) { animation-delay: 1s; }
+    .card:nth-child(6) { animation-delay: 1.2s; }
+    .card:nth-child(7) { animation-delay: 1.4s; }
+    .card:nth-child(8) { animation-delay: 1.6s; }
+    .card:nth-child(9) { animation-delay: 1.8s; }
+    .card:nth-child(10) { animation-delay: 2s; }
+    .card:nth-child(11) { animation-delay: 2.2s; }
+    .card:nth-child(12) { animation-delay: 2.4s; }
+    .card:nth-child(13) { animation-delay: 2.6s; }
+    .card:nth-child(14) { animation-delay: 2.8s; }
+    .card:nth-child(15) { animation-delay: 3s; }
+    .card:nth-child(16) { animation-delay: 3.2s; }
+    .card:nth-child(17) { animation-delay: 3.4s; }
+    .card:nth-child(18) { animation-delay: 3.6s; }
+    .card:nth-child(19) { animation-delay: 3.8s; }
+    .card:nth-child(20) { animation-delay: 4s; }
+    .card:nth-child(21) { animation-delay: 4.2s; }
+    .card:nth-child(22) { animation-delay: 4.4s; }
+    .card:nth-child(23) { animation-delay: 4.6s; }
+    .card:nth-child(24) { animation-delay: 4.8s; }
+    .card:nth-child(25) { animation-delay: 5s; }
+    .card:nth-child(26) { animation-delay: 5.2s; }
+    .card:nth-child(27) { animation-delay: 5.4s; }
+    .card:nth-child(28) { animation-delay: 4.8s; }
+    .card:nth-child(29) { animation-delay: 5s; }
+    .card:nth-child(30) { animation-delay: 5.2s; }
+    .card:nth-child(31) { animation-delay: 5.4s; }
+    .card:nth-child(32) { animation-delay: 5.6s; }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+   
+    @media screen and (max-width: 900px) {
+      .products {
+        grid-template-columns: repeat(3, 1fr); 
+      }
+    }
+    
+    @media screen and (max-width: 600px) {
+      .card {
+        width: 90%;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .card img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    a.back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px; /* or right: 20px if you want it on the right */
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    a.back-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>BANSURI</h1>
+  </header>
+
+  <a href="index.html" class="back-link">←</a>
+
+  <div class="grid">
+    <div class="card">
+      <img src="bansuri1.jpeg" alt="Morpankh bansuri">
+      <h3>Morpankh bansuri (KA401)</h3>
+      <p>
+        Size: 
+        <select class="sizeSelect">
+          <option value="0" data-price="50">0</option>
+          <option value="1" data-price="50">1</option>
+          <option value="2" data-price="70">2</option>
+          <option value="3" data-price="90">3</option>
+          <option value="4" data-price="110">4</option>
+          <option value="5" data-price="130">5</option>
+          <option value="6" data-price="150">6</option>
+          <option value="7" data-price="170">7</option>
+          <option value="8" data-price="190">8</option>
+          <option value="9" data-price="210">9</option>
+          <option value="10" data-price="230">10</option>          
+        </select>
+      </p>
+      <p>Price: ₹<span class="priceDisplay">50</span></p>
+      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+        Buy on WhatsApp
+      </a>
+    </div>
+
+    <div class="card">
+      <img src="bansuri2.jpeg" alt="2 bansuri combo">
+      <h3>2 bansuri combo (KA402)</h3>
+      <p>
+        Size: 
+        <select class="sizeSelect">
+          <option value="0" data-price="90">0</option>
+          <option value="1" data-price="90">1</option>
+          <option value="2" data-price="120">2</option>
+          <option value="3" data-price="150">3</option>
+          <option value="4" data-price="180">4</option>
+          <option value="5" data-price="210">5</option>
+          <option value="6" data-price="240">6</option>
+          <option value="7" data-price="270">7</option>
+          <option value="8" data-price="300">8</option>
+          <option value="9" data-price="340">9</option>
+          <option value="10" data-price="380">10</option>          
+        </select>
+      </p>
+      <p>Price: ₹<span class="priceDisplay">90</span></p>
+      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+        Buy on WhatsApp
+      </a>
+    </div>
+
+    <div class="card">
+      <img src="bansuri3.jpeg" alt="Rose bansuri">
+      <h3>Rose bansuri (KA403)</h3>
+      <p>
+        Size: 
+        <select class="sizeSelect">
+          <option value="0" data-price="30">0</option>
+          <option value="1" data-price="30">1</option>
+          <option value="2" data-price="50">2</option>
+          <option value="3" data-price="70">3</option>
+          <option value="4" data-price="90">4</option>
+          <option value="5" data-price="110">5</option>
+          <option value="6" data-price="130">6</option>
+          <option value="7" data-price="150">7</option>
+          <option value="8" data-price="180">8</option>
+          <option value="9" data-price="210">9</option>
+          <option value="10" data-price="240">10</option>          
+        </select>
+      </p>
+      <p>Price: ₹<span class="priceDisplay">30</span></p>
+      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+        Buy on WhatsApp
+      </a>
+    </div>
+
+    <div class="card">
+      <img src="bansuri4.jpeg" alt="Morpankh heavy bansuri">
+      <h3>Morpankh heavy bansuri (KA404)</h3>
+      <p>
+        Size: 
+        <select class="sizeSelect">
+          <option value="0" data-price="90">0</option>
+          <option value="1" data-price="90">1</option>
+          <option value="2" data-price="110">2</option>
+          <option value="3" data-price="130">3</option>
+          <option value="4" data-price="150">4</option>
+          <option value="5" data-price="170">5</option>
+          <option value="6" data-price="200">6</option>
+          <option value="7" data-price="230">7</option>
+          <option value="8" data-price="260">8</option>
+          <option value="9" data-price="290">9</option>
+          <option value="10" data-price="320">10</option>          
+        </select>
+      </p>
+      <p>Price: ₹<span class="priceDisplay">90</span></p>
+      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+        Buy on WhatsApp
+      </a>
+    </div>
+
+    <div class="card">
+      <img src="bansuri5.jpeg" alt="Kundan and stone chain bansuri">
+      <h3>Kundan and stone chain bansuri (KA405)</h3>
+      <p>
+        Size: 
+        <select class="sizeSelect">
+          <option value="0" data-price="50">0</option>
+          <option value="1" data-price="50">1</option>
+          <option value="2" data-price="80">2</option>
+          <option value="3" data-price="100">3</option>
+          <option value="4" data-price="120">4</option>
+          <option value="5" data-price="140">5</option>
+          <option value="6" data-price="160">6</option>
+          <option value="7" data-price="180">7</option>
+          <option value="8" data-price="200">8</option>
+          <option value="9" data-price="220">9</option>
+          <option value="10" data-price="240">10</option>          
+        </select>
+      </p>
+      <p>Price: ₹<span class="priceDisplay">50</span></p>
+      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+        Buy on WhatsApp
+      </a>
+    </div>
+
+  </div>
+  
+<script>
+// Your WhatsApp phone number (with country code, no + sign)
+const phone = '919996210141';
+
+// For each card, update price and WhatsApp link when size changes
+document.querySelectorAll('.card').forEach(card => {
+  const select = card.querySelector('.sizeSelect');
+  const priceDisplay = card.querySelector('.priceDisplay');
+  const buyBtn = card.querySelector('.buyBtn');
+  const bansuriName = card.querySelector('h3').textContent.trim();
+
+  function update() {
+    const selectedOption = select.options[select.selectedIndex];
+    const price = selectedOption.getAttribute('data-price');
+    const size = select.value;
+
+    priceDisplay.textContent = price;
+
+    const text = encodeURIComponent(`Hi! I want to buy the ${bansuriName} size ${size} for ₹${price} from Krishan Attire.`);
+    buyBtn.href =` https://wa.me/${phone}?text=${text}`;
+  }
+
+  // Initialize button on page load
+  update();
+
+  // Update when user changes size
+  select.addEventListener('change', update);
+});
+</script>
+
+</body>
+</html> 
