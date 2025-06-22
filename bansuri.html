@@ -32,11 +32,12 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       padding: 20px;
-      max-width: 1200px;
-      margin: auto;
+      max-width: 900px;
+      margin: 0 auto;
+      justify-items: center;
     }
 
     .cart-icon {
@@ -274,7 +275,6 @@
     <div id="cartTotal" style="margin-top: 10px; font-weight: bold;"></div>
     <a href="#" id="checkoutLink" target="_blank">Buy on WhatsApp</a>
     <div id="clearCartBtn" onclick="clearCart()">Remove All Items</div>
-    <div id="undoClearBtn" style="display:none; background: orange;" onclick="undoClearCart()">Undo Clear</div>
   </div>
 
   
@@ -453,8 +453,6 @@
   cartIcon.classList.add('animated');
   setTimeout(() => cartIcon.classList.remove('animated'), 400);
 
-  lastCartBackup = JSON.parse(localStorage.getItem('cart') || '[]');
-
   function addToCart(button) {
     const card = button.closest('.card');
     const name = card.querySelector('h3').textContent;
@@ -505,10 +503,8 @@
       itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
       totalEl.textContent = '';
       document.getElementById('checkoutLink').style.display = 'none';
-      document.getElementById('clearCartBtn').style.display = 'none';
     } else {
     document.getElementById('checkoutLink').style.display = 'block';
-    document.getElementById('clearCartBtn').style.display = 'block';
     let message = "Hi! I want to order the following items from Krishan Attire:%0A";
 
     cart.forEach((item, i) => {
