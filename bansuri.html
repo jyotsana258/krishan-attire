@@ -16,10 +16,14 @@
     }
 
     header {
-      position: relative;
-      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
       background-color: #112244;
-      text-align: center;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     h1 {
@@ -363,19 +367,27 @@
     const select = card.querySelector('select');
     const size = select.value;
     const price = select.options[select.selectedIndex].getAttribute('data-price');
-  
-    const category = 'Bansuri'; // 🔁 Change this to 'Mukut', 'Pagdi', etc. for each category page
-  
-    const item = { name, size, price, category };
+    const item = { name, size, price };
   
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
     cart.push(item);
     localStorage.setItem('cart', JSON.stringify(cart));
   
     updateCartCount();
-    showCartNotification();
+  
+    // Show popup once
+    showCartNotification(`${name} (Size ${size}) added to cart!`);
   }
 
+  function showCartNotification(message) {
+    const notification = document.getElementById('cartNotification');
+    notification.textContent = message;
+    notification.style.display = 'block';
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 2000);
+  }
+  
   function showCartNotification() {
     const note = document.getElementById("cartNotification");
     note.style.display = "block";
