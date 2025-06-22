@@ -561,6 +561,7 @@
   function clearCart() {
     if (confirm("Are you sure you want to remove all items from the cart?")) {
       localStorage.removeItem('cart');
+      document.getElementById('clearCartBtn').style.display = 'none';
       toggleCart();
       updateCartCount();
       showCartNotification("All items removed!");
