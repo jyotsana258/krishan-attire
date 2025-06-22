@@ -169,6 +169,19 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
+    #closeCartBtn {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      color: #333;
+    }
+    
+    #closeCartBtn:hover {
+      color: darkred;
+    }
+    
     #cartPopup {
       display: none;
       position: fixed;
@@ -234,11 +247,11 @@
 
   <!-- Cart Popup -->
   <div id="cartPopup">
+    <span id="closeCartBtn" onclick="closeCart()">❌</span>
     <strong>Your Cart:</strong>
     <ul id="cartItems"></ul>
     <a href="#" id="checkoutLink" target="_blank">Buy on WhatsApp</a>
     <div id="clearCartBtn" onclick="clearCart()">Remove All Items</div>
-    <div id="closeCartBtn" onclick="closeCart()" style="margin-top: 10px; background: gray; color: white; padding: 8px 10px; border-radius: 4px; text-align: center; cursor: pointer;">Close</div>
   </div>
   
   <div class="grid">
