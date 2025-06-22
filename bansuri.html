@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Krishan Attire - Bansuri</title>
+  
   <style>
     body {
       background-color: #0b1d36;
@@ -33,6 +34,23 @@
       margin: auto;
     }
 
+    .cart-icon {
+      font-size: 20px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+    
     .card {
       opacity: 0;
       transform: translateY(30px);
@@ -120,16 +138,75 @@
     a.back-link:hover {
       background: rgba(255, 255, 255, 0.2);
     }
+
+    #cartPopup {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      color: black;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+
+    #cartPopup ul {
+      list-style: none;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #cartPopup li {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    #cartPopup a {
+      display: block;
+      margin-top: 10px;
+      background: green;
+      color: white;
+      padding: 8px 10px;
+      border-radius: 4px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    button {
+      background-color: gold;
+      color: #0b1d36;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
   </style>
 </head>
 <body>
 
   <header>
     <h1>BANSURI</h1>
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 Cart <span class="cart-count" id="cartCount">0</span>
+    </div>
   </header>
 
   <a href="index.html" class="back-link">←</a>
-
+  
+  <!-- Cart Popup -->
+  <div id="cartPopup">
+    <strong>Your Cart:</strong>
+    <ul id="cartItems"></ul>
+    <a href="#" id="checkoutLink" target="_blank">Buy on WhatsApp</a>
+  </div>
+  
   <div class="grid">
     <div class="card">
       <img src="bansuri1.jpeg" alt="Morpankh bansuri">
@@ -151,9 +228,7 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">50</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="addToCart(this)">Add to Cart</button>        
     </div>
 
     <div class="card">
@@ -176,9 +251,7 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">90</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -201,9 +274,7 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">30</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -226,9 +297,7 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">90</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -251,42 +320,59 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">50</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="addToCart(this)">Add to Cart</button>
     </div>
 
   </div>
   
 <script>
-// Your WhatsApp phone number (with country code, no + sign)
-const phone = '919996210141';
+    const phone = '919996210141';
 
-// For each card, update price and WhatsApp link when size changes
-document.querySelectorAll('.card').forEach(card => {
-  const select = card.querySelector('.sizeSelect');
-  const priceDisplay = card.querySelector('.priceDisplay');
-  const buyBtn = card.querySelector('.buyBtn');
-  const bansuriName = card.querySelector('h3').textContent.trim();
+    function addToCart(button) {
+      const card = button.closest('.card');
+      const name = card.querySelector('h3').textContent;
+      const select = card.querySelector('select');
+      const size = select.value;
+      const price = select.options[select.selectedIndex].getAttribute('data-price');
+      const item = { name, size, price };
 
-  function update() {
-    const selectedOption = select.options[select.selectedIndex];
-    const price = selectedOption.getAttribute('data-price');
-    const size = select.value;
+      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(cart));
 
-    priceDisplay.textContent = price;
+      updateCartCount();
+      alert("Added to cart!");
+    }
 
-    const text = encodeURIComponent(`Hi! I want to buy the ${bansuriName} size ${size} for ₹${price} from Krishan Attire.`);
-    buyBtn.href =` https://wa.me/${phone}?text=${text}`;
-  }
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      document.getElementById('cartCount').textContent = cart.length;
+    }
 
-  // Initialize button on page load
-  update();
+    function toggleCart() {
+      const popup = document.getElementById('cartPopup');
+      const itemsContainer = document.getElementById('cartItems');
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      itemsContainer.innerHTML = '';
 
-  // Update when user changes size
-  select.addEventListener('change', update);
-});
-</script>
+      if (cart.length === 0) {
+        itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
+        document.getElementById('checkoutLink').style.display = 'none';
+      } else {
+        document.getElementById('checkoutLink').style.display = 'block';
+        let message = "Hi! I want to order the following items from Krishan Attire:%0A";
+        cart.forEach((item, i) => {
+          itemsContainer.innerHTML += `<li>${item.name} (Size: ${item.size}) - ₹${item.price}</li>`;
+          message += `${i+1}. ${item.name} (Size: ${item.size}) - ₹${item.price}%0A`;
+        });
+        document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
+      }
+
+      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    }
+
+    updateCartCount();
+  </script>
 
 </body>
 </html> 
