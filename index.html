@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Krishan Attire</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
   <style>
     body {
       margin: 0;
@@ -13,7 +15,7 @@
       color: #f9e4b7;
     }
 
-    nav {
+/*     nav {
       display: flex;
       justify-content: center;
       gap: 30px;
@@ -27,6 +29,30 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 18px;
+    } */
+
+    .center-logo img {
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex: 1;
+      justify-content: flex-end;
+    }
+
+    .right-icons i {
+      color: #ffd700;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .right-icons i:hover {
+      transform: scale(1.2);
     }
 
     .slider {
@@ -178,12 +204,22 @@
 <body>
 
   <!-- NAVIGATION -->
-  <nav>
+<!--   <nav>
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
     <a href="about.html">About</a>
-  </nav>
-
+  </nav> -->
+  <header>
+    <div class="center-logo">
+      <img src="logo.png" alt="Krishan Attire Logo">
+    </div>
+  
+    <div class="right-icons">
+      <img src="search.png" alt="Search" title="Search">
+      <img src="cart.png" alt="Cart" title="Cart">
+    </div>
+  </header>
+  
   <!-- HERO SLIDER -->
   <div class="slider">
     <div class="slides">
@@ -262,12 +298,52 @@
       </a>
     </div>
   </div>
+  <!-- SEARCH POPUP -->
+<div id="searchPopup" style="display:none; position: fixed; top: 80px; right: 20px; background: #fff3e0; padding: 10px 15px; border: 1px solid gold; border-radius: 8px; z-index: 100;">
+  <input type="text" placeholder="Search products..." style="padding: 6px 10px; width: 200px; border: 1px solid #ccc; border-radius: 4px;">
+</div>
 
+<!-- CART POPUP -->
+<div id="cartPopup" style="display:none; position: fixed; top: 80px; right: 20px; background: #fff3e0; padding: 15px; border: 1px solid gold; border-radius: 8px; z-index: 100; color: #333;">
+  <strong>Your cart is empty!</strong>
+</div>
+
+<script>
+  const searchIcon = document.querySelector(".fa-search");
+  const cartIcon = document.querySelector(".fa-shopping-cart");
+  const searchPopup = document.getElementById("searchPopup");
+  const cartPopup = document.getElementById("cartPopup");
+
+  // Toggle search popup
+  searchIcon.addEventListener("click", () => {
+    searchPopup.style.display = searchPopup.style.display === "none" ? "block" : "none";
+    cartPopup.style.display = "none"; // Hide cart if open
+  });
+
+  // Toggle cart popup
+  cartIcon.addEventListener("click", () => {
+    cartPopup.style.display = cartPopup.style.display === "none" ? "block" : "none";
+    searchPopup.style.display = "none"; // Hide search if open
+  });
+
+  // Close popups if clicked outside
+  window.addEventListener("click", (e) => {
+    if (!e.target.closest('.fa-search') && !e.target.closest('#searchPopup')) {
+      searchPopup.style.display = "none";
+    }
+    if (!e.target.closest('.fa-shopping-cart') && !e.target.closest('#cartPopup')) {
+      cartPopup.style.display = "none";
+    }
+  });
+</script>
+  
   <!-- ABOUT US -->
   <div class="section">
     <h2>About Us</h2>
     <div class="about">
-      Welcome to <strong>Krishan Attire</strong>, where tradition meets elegance in our handcrafted dresses for god idols. Each dress is made with devotion, detail, and cultural richness. Order via WhatsApp with ease.
+      <strong>Krishan Attire</strong> is a humble offering of love and devotion to <strong>Thakur Ji</strong>. Every dress is crafted with care, beauty, and spiritual intention. From hand embroidery to vibrant colors, our mission is to bring joy to your pooja rituals.
+
+      Founded by <strong>Divya and Jyotsana</strong>, this project brings together devotion and design to serve those who love adorning Thakur Ji with grace.
     </div>
   </div>
 
