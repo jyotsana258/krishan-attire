@@ -84,7 +84,8 @@
       display: none;
       z-index: 9999;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      animation: fadePopup 1s ease-in-out;
+      opacity: 0;
+      transition: opacity 0.6s ease;
     }
     
     @keyframes fadePopup {
@@ -232,14 +233,60 @@
     }
 
     #clearCartBtn {
-    background: darkred;
-    color: white;
-    display: block;
-    margin-top: 10px;
-    padding: 8px 10px;
-    border-radius: 4px;
-    text-align: center;
-    cursor: pointer;
+      background: darkred;
+      color: white;
+      display: block;
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(3px);
+      z-index: 998;
+      display: none;
+    }
+    
+    #confirmPopup {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      color: #0b1d36;
+      padding: 20px 30px;
+      border-radius: 12px;
+      z-index: 999;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    
+    .popup-buttons {
+      margin-top: 15px;
+    }
+    
+    .popup-buttons button {
+      margin: 0 10px;
+      padding: 8px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+    }
+  
+    .popup-buttons button:first-child {
+      background-color: darkred;
+      color: white;
+    }
+    
+    .popup-buttons button:last-child {
+      background-color: #ccc;
     }
 
     #confirmPopup {
@@ -324,6 +371,7 @@
     <div id="clearCartBtn" onclick="clearCart()">Remove All Items</div>
   </div>
 
+  <div id="overlay"></div>
   <!-- Custom Confirm Popup -->
   <div id="confirmPopup">
     <div class="popup-content">
@@ -538,11 +586,23 @@
     const notification = document.getElementById('cartNotification');
     notification.textContent = message;
     notification.style.display = 'block';
+  
+    // Fade in
+    setTimeout(() => {
+      notification.style.opacity = '1';
+    }, 50);
+  
+    // Fade out after 2 seconds
+    setTimeout(() => {
+      notification.style.opacity = '0';
+    }, 2000);
+  
+    // Hide completely after animation ends
     setTimeout(() => {
       notification.style.display = 'none';
-    }, 2000);
+    }, 2700);
   }
-  
+
   function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     document.getElementById('cartCount').textContent = cart.length;
@@ -560,9 +620,10 @@
       itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
       totalEl.textContent = '';
       document.getElementById('checkoutLink').style.display = 'none';
-      document.getElementById('clearCartBtn').style.display = 'none';
+      document.getElementById('clearCartBtn').style.display = 'none';  // ✅ hide button
     } else {
-    document.getElementById('checkoutLink').style.display = 'block';
+      document.getElementById('checkoutLink').style.display = 'block';
+      document.getElementById('clearCartBtn').style.display = 'block';  // ✅ show button
     let message = "Hi! I want to order the following items from Krishan Attire:%0A";
 
     cart.forEach((item, i) => {
@@ -597,6 +658,19 @@
     }
   }
 
+    function confirmClearYes() {
+    localStorage.removeItem('cart');
+    updateCartCount();
+    closeConfirmPopup();
+    toggleCart(); // Refresh the popup
+    showCartNotification("All items removed!");
+  }
+  
+  function closeConfirmPopup() {
+    document.getElementById('confirmPopup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  }
+
   function undoClearCart() {
     if (lastCartBackup.length > 0) {
       localStorage.setItem('cart', JSON.stringify(lastCartBackup));
@@ -616,8 +690,9 @@
   }
 
   function clearCart() {
-  // Show custom confirm popup instead of native confirm()
-    document.getElementById('confirmPopup').style.display = 'flex';
+    // Show the confirmation popup with blur
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('confirmPopup').style.display = 'block';
   }
   
   function closeConfirmPopup() {
