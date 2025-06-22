@@ -219,6 +219,17 @@
       text-decoration: none;
     }
 
+    #clearCartBtn {
+    background: darkred;
+    color: white;
+    display: block;
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+  }
+
     button {
       background-color: gold;
       color: #0b1d36;
@@ -250,9 +261,12 @@
     <span id="closeCartBtn" onclick="closeCart()">❌</span>
     <strong>Your Cart:</strong>
     <ul id="cartItems"></ul>
+    <div id="cartTotal" style="margin-top: 10px; font-weight: bold;"></div>
     <a href="#" id="checkoutLink" target="_blank">Buy on WhatsApp</a>
     <div id="clearCartBtn" onclick="clearCart()">Remove All Items</div>
+    <div id="undoClearBtn" style="display:none; background: orange;" onclick="undoClearCart()">Undo Clear</div>
   </div>
+
   
   <div class="grid">
     <div class="card">
@@ -375,6 +389,8 @@
 <script>
   const phone = '919996210141';
 
+  lastCartBackup = JSON.parse(localStorage.getItem('cart') || '[]');
+
   function addToCart(button) {
     const card = button.closest('.card');
     const name = card.querySelector('h3').textContent;
@@ -402,30 +418,27 @@
     }, 2000);
   }
   
-  function showCartNotification() {
-    const note = document.getElementById("cartNotification");
-    note.style.display = "block";
-    setTimeout(() => {
-      note.style.display = "none";
-    }, 2000);
-  }
-
   function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     document.getElementById('cartCount').textContent = cart.length;
   }
 
-  function toggleCart() {
-    const popup = document.getElementById('cartPopup');
-    const itemsContainer = document.getElementById('cartItems');
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    itemsContainer.innerHTML = '';
-
-    if (cart.length === 0) {
-      itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
-      document.getElementById('checkoutLink').style.display = 'none';
-    } else {
+   function toggleCart() {
+      const popup = document.getElementById('cartPopup');
+      const itemsContainer = document.getElementById('cartItems');
+      const totalEl = document.getElementById('cartTotal');
+      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      itemsContainer.innerHTML = '';
+      let total = 0;
+  
+      if (cart.length === 0) {
+        itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
+        totalEl.textContent = '';
+        document.getElementById('checkoutLink').style.display = 'none';
+        document.getElementById('clearCartBtn').style.display = 'none';
+      } else {
       document.getElementById('checkoutLink').style.display = 'block';
+      document.getElementById('clearCartBtn').style.display = 'block';
       let message = "Hi! I want to order the following items from Krishan Attire:%0A";
 
       cart.forEach((item, i) => {
@@ -434,14 +447,39 @@
           ${item.name} (Size: ${item.size}) - ₹${item.price}
           <button onclick="removeFromCart(${i})" style="margin-left: 10px; background: red; color: white; border: none; padding: 2px 6px; cursor: pointer;">X</button>
         `;
+        total += parseFloat(item.price);
         itemsContainer.appendChild(li);
         message += `${i + 1}. ${item.name} (Size: ${item.size}) - ₹${item.price}%0A`;
       });
 
+      totalEl.textContent = `Total: ₹${total}`;
       document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
     }
 
-    popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+    popup.style.display = 'block';
+  }
+
+  function confirmClearCart() {
+    if (confirm("Are you sure you want to remove all items from the cart?")) {
+      lastCartBackup = JSON.parse(localStorage.getItem('cart') || '[]');
+      localStorage.removeItem('cart');
+      updateCartCount();
+      toggleCart();
+      document.getElementById('undoClearBtn').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('undoClearBtn').style.display = 'none';
+      }, 5000);
+    }
+  }
+
+  function undoClearCart() {
+    if (lastCartBackup.length > 0) {
+      localStorage.setItem('cart', JSON.stringify(lastCartBackup));
+      updateCartCount();
+      toggleCart();
+      lastCartBackup = [];
+      document.getElementById('undoClearBtn').style.display = 'none';
+    }
   }
 
   function removeFromCart(index) {
@@ -450,6 +488,15 @@
     localStorage.setItem('cart', JSON.stringify(cart));
     toggleCart(); // Refresh the cart popup
     updateCartCount();
+  }
+
+  function clearCart() {
+    if (confirm("Are you sure you want to remove all items from the cart?")) {
+      localStorage.removeItem('cart');
+      toggleCart();
+      updateCartCount();
+      showCartNotification("All items removed!");
+    }
   }
 
   function closeCart() {
