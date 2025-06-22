@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Krishan Attire - Bansuri</title>
   
   <style>
@@ -15,9 +16,10 @@
     }
 
     header {
-      text-align: center;
+      position: relative;
       padding: 20px;
       background-color: #112244;
+      text-align: center;
     }
 
     h1 {
@@ -35,9 +37,12 @@
     }
 
     .cart-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
       font-size: 20px;
       cursor: pointer;
-      position: relative;
+      color: white;
     }
 
     .cart-count {
@@ -49,6 +54,28 @@
       border-radius: 50%;
       padding: 2px 6px;
       font-size: 12px;
+    }
+
+    #cartNotification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: gold;
+      color: #0b1d36;
+      padding: 15px 25px;
+      font-weight: bold;
+      border-radius: 10px;
+      display: none;
+      z-index: 9999;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      animation: fadePopup 1s ease-in-out;
+    }
+    
+    @keyframes fadePopup {
+      0% { opacity: 0; transform: translate(-50%, -60%); }
+      50% { opacity: 1; transform: translate(-50%, -50%); }
+      100% { opacity: 0; transform: translate(-50%, -40%); }
     }
     
     .card {
@@ -194,12 +221,14 @@
   <header>
     <h1>BANSURI</h1>
     <div class="cart-icon" onclick="toggleCart()">
-      🛒 Cart <span class="cart-count" id="cartCount">0</span>
+      <i class="fas fa-shopping-cart"></i> <span class="cart-count" id="cartCount">0</span>
     </div>
   </header>
 
   <a href="index.html" class="back-link">←</a>
-  
+
+  <div id="cartNotification">Added to Cart!</div>
+
   <!-- Cart Popup -->
   <div id="cartPopup">
     <strong>Your Cart:</strong>
@@ -326,53 +355,80 @@
   </div>
   
 <script>
-    const phone = '919996210141';
+  const phone = '919996210141';
 
-    function addToCart(button) {
-      const card = button.closest('.card');
-      const name = card.querySelector('h3').textContent;
-      const select = card.querySelector('select');
-      const size = select.value;
-      const price = select.options[select.selectedIndex].getAttribute('data-price');
-      const item = { name, size, price };
-
-      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      cart.push(item);
-      localStorage.setItem('cart', JSON.stringify(cart));
-
-      updateCartCount();
-      alert("Added to cart!");
-    }
-
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      document.getElementById('cartCount').textContent = cart.length;
-    }
-
-    function toggleCart() {
-      const popup = document.getElementById('cartPopup');
-      const itemsContainer = document.getElementById('cartItems');
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      itemsContainer.innerHTML = '';
-
-      if (cart.length === 0) {
-        itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
-        document.getElementById('checkoutLink').style.display = 'none';
-      } else {
-        document.getElementById('checkoutLink').style.display = 'block';
-        let message = "Hi! I want to order the following items from Krishan Attire:%0A";
-        cart.forEach((item, i) => {
-          itemsContainer.innerHTML += `<li>${item.name} (Size: ${item.size}) - ₹${item.price}</li>`;
-          message += `${i+1}. ${item.name} (Size: ${item.size}) - ₹${item.price}%0A`;
-        });
-        document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
-      }
-
-      popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
-    }
-
+  function addToCart(button) {
+    const card = button.closest('.card');
+    const name = card.querySelector('h3').textContent;
+    const select = card.querySelector('select');
+    const size = select.value;
+    const price = select.options[select.selectedIndex].getAttribute('data-price');
+  
+    const category = 'Bansuri'; // 🔁 Change this to 'Mukut', 'Pagdi', etc. for each category page
+  
+    const item = { name, size, price, category };
+  
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  
     updateCartCount();
-  </script>
+    showCartNotification();
+  }
+
+  function showCartNotification() {
+    const note = document.getElementById("cartNotification");
+    note.style.display = "block";
+    setTimeout(() => {
+      note.style.display = "none";
+    }, 2000);
+  }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    document.getElementById('cartCount').textContent = cart.length;
+  }
+
+  function toggleCart() {
+    const popup = document.getElementById('cartPopup');
+    const itemsContainer = document.getElementById('cartItems');
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    itemsContainer.innerHTML = '';
+
+    if (cart.length === 0) {
+      itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
+      document.getElementById('checkoutLink').style.display = 'none';
+    } else {
+      document.getElementById('checkoutLink').style.display = 'block';
+      let message = "Hi! I want to order the following items from Krishan Attire:%0A";
+
+      cart.forEach((item, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          ${item.name} (Size: ${item.size}) - ₹${item.price}
+          <button onclick="removeFromCart(${i})" style="margin-left: 10px; background: red; color: white; border: none; padding: 2px 6px; cursor: pointer;">X</button>
+        `;
+        itemsContainer.appendChild(li);
+        message += `${i + 1}. ${item.name} (Size: ${item.size}) - ₹${item.price}%0A`;
+      });
+
+      document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
+    }
+
+    popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.splice(index, 1); // Remove the item at the given index
+    localStorage.setItem('cart', JSON.stringify(cart));
+    toggleCart(); // Refresh the cart popup
+    updateCartCount();
+  }
+
+  updateCartCount();
+</script>
+
 
 </body>
 </html> 
