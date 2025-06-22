@@ -59,6 +59,16 @@
       font-size: 12px;
     }
 
+    .cart-icon.animated {
+      animation: bounce 0.4s ease;
+    }
+    
+    @keyframes bounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+      100% { transform: scale(1); }
+    }
+
     #cartNotification {
       position: fixed;
       top: 50%;
@@ -288,6 +298,16 @@
           <option value="10" data-price="230">10</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtySelect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">50</span></p>
       <button onclick="addToCart(this)">Add to Cart</button>        
     </div>
@@ -309,6 +329,16 @@
           <option value="8" data-price="300">8</option>
           <option value="9" data-price="340">9</option>
           <option value="10" data-price="380">10</option>          
+        </select>
+      </p>
+      <p>
+        Quantity:
+        <select class="qtySelect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">90</span></p>
@@ -334,6 +364,16 @@
           <option value="10" data-price="240">10</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtySelect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">30</span></p>
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
@@ -355,6 +395,16 @@
           <option value="8" data-price="260">8</option>
           <option value="9" data-price="290">9</option>
           <option value="10" data-price="320">10</option>          
+        </select>
+      </p>
+      <p>
+        Quantity:
+        <select class="qtySelect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">90</span></p>
@@ -380,6 +430,16 @@
           <option value="10" data-price="240">10</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtySelect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">50</span></p>
       <button onclick="addToCart(this)">Add to Cart</button>
     </div>
@@ -389,23 +449,33 @@
 <script>
   const phone = '919996210141';
 
+  const cartIcon = document.querySelector('.cart-icon');
+  cartIcon.classList.add('animated');
+  setTimeout(() => cartIcon.classList.remove('animated'), 400);
+
   lastCartBackup = JSON.parse(localStorage.getItem('cart') || '[]');
 
   function addToCart(button) {
     const card = button.closest('.card');
     const name = card.querySelector('h3').textContent;
-    const select = card.querySelector('select');
+    const select = card.querySelector('select.sizeSelect');
     const size = select.value;
     const price = select.options[select.selectedIndex].getAttribute('data-price');
-    const item = { name, size, price };
+    const qty = parseInt(card.querySelector('.qtySelect').value);
   
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    cart.push(item);
+  
+    // ✅ Check if item with same name and size already exists
+    const isDuplicate = cart.some(item => item.name === name && item.size === size);
+    if (isDuplicate) {
+      showCartNotification(`${name} (Size ${size}) is already in cart.`);
+      return; // Stop from adding
+    }
+  
+    // ✅ If not duplicate, add it
+    cart.push({ name, size, price, qty });
     localStorage.setItem('cart', JSON.stringify(cart));
-  
     updateCartCount();
-  
-    // Show popup once
     showCartNotification(`${name} (Size ${size}) added to cart!`);
   }
 
@@ -423,38 +493,39 @@
     document.getElementById('cartCount').textContent = cart.length;
   }
 
-   function toggleCart() {
-      const popup = document.getElementById('cartPopup');
-      const itemsContainer = document.getElementById('cartItems');
-      const totalEl = document.getElementById('cartTotal');
-      let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      itemsContainer.innerHTML = '';
-      let total = 0;
-  
-      if (cart.length === 0) {
-        itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
-        totalEl.textContent = '';
-        document.getElementById('checkoutLink').style.display = 'none';
-        document.getElementById('clearCartBtn').style.display = 'none';
-      } else {
-      document.getElementById('checkoutLink').style.display = 'block';
-      document.getElementById('clearCartBtn').style.display = 'block';
-      let message = "Hi! I want to order the following items from Krishan Attire:%0A";
+  function toggleCart() {
+    const popup = document.getElementById('cartPopup');
+    const itemsContainer = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    itemsContainer.innerHTML = '';
+    let total = 0;
 
-      cart.forEach((item, i) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          ${item.name} (Size: ${item.size}) - ₹${item.price}
-          <button onclick="removeFromCart(${i})" style="margin-left: 10px; background: red; color: white; border: none; padding: 2px 6px; cursor: pointer;">X</button>
-        `;
-        total += parseFloat(item.price);
-        itemsContainer.appendChild(li);
-        message += `${i + 1}. ${item.name} (Size: ${item.size}) - ₹${item.price}%0A`;
-      });
+    if (cart.length === 0) {
+      itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
+      totalEl.textContent = '';
+      document.getElementById('checkoutLink').style.display = 'none';
+      document.getElementById('clearCartBtn').style.display = 'none';
+    } else {
+    document.getElementById('checkoutLink').style.display = 'block';
+    document.getElementById('clearCartBtn').style.display = 'block';
+    let message = "Hi! I want to order the following items from Krishan Attire:%0A";
 
-      totalEl.textContent = `Total: ₹${total}`;
-      document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
-    }
+    cart.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        ${item.name} (Size: ${item.size}) - ₹${item.price}
+        <button onclick="removeFromCart(${i})" style="margin-left: 10px; background: red; color: white; border: none; padding: 2px 6px; cursor: pointer;">X</button>
+      `;
+      total += parseFloat(item.price);
+      itemsContainer.appendChild(li);
+      message += `${i + 1}. ${item.name} (Size: ${item.size}, Qty: ${item.qty}) - ₹${item.price * item.qty}%0A`;
+      total += parseFloat(item.price) * item.qty;
+    });
+
+    totalEl.textContent = `Total: ₹${total}`;
+    document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
+  }
 
     popup.style.display = 'block';
   }
