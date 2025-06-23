@@ -548,6 +548,8 @@
   cartIcon.classList.add('animated');
   setTimeout(() => cartIcon.classList.remove('animated'), 400);
 
+  let lastCartBackup = [];
+
   function addToCart(button) {
     const card = button.closest('.card');
     const name = card.querySelector('h3').textContent;
@@ -620,35 +622,35 @@
       const li = document.createElement('li');
       li.innerHTML = `
         ${item.name} (Size: ${item.size}, Qty: ${item.qty}) - ₹${item.price * item.qty}
-      `;
         <button onclick="removeFromCart(${i})" style="margin-left: 10px; background: red; color: white; border: none; padding: 2px 6px; cursor: pointer;">X</button>
       `;
       itemsContainer.appendChild(li);
       message += `${i + 1}. ${item.name} (Size: ${item.size}, Qty: ${item.qty}) - ₹${item.price * item.qty}%0A`;
       total += parseFloat(item.price) * item.qty;
-    });
+  });
 
-    totalEl.textContent = `Total: ₹${total}`;
+  totalEl.textContent = `Total: ₹${total}`;
     document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
   }
-
-    popup.style.display = 'block';
+  popup.style.display = 'block';
   }
 
-  function confirmClearCart() {
-    if (confirm("Are you sure you want to remove all items from the cart?")) {
-      lastCartBackup = JSON.parse(localStorage.getItem('cart') || '[]');
-      localStorage.removeItem('cart');
-      updateCartCount();
-      toggleCart();
-      document.getElementById('undoClearBtn').style.display = 'block';
-      setTimeout(() => {
-        document.getElementById('undoClearBtn').style.display = 'none';
-      }, 5000);
-    }
+  function confirmClearCartAction() {
+    lastCartBackup = JSON.parse(localStorage.getItem('cart') || '[]');
+    localStorage.removeItem('cart');
+    updateCartCount();
+    toggleCart();
+    closeConfirmPopup();
+    showCartNotification("All items removed!");
+  
+    // ✅ Show Undo
+    document.getElementById('undoClearBtn').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('undoClearBtn').style.display = 'none';
+    }, 5000);
   }
 
-    function confirmClearYes() {
+  function confirmClearYes() {
     localStorage.removeItem('cart');
     updateCartCount();
     closeConfirmPopup();
