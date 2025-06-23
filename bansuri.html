@@ -408,7 +408,7 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">50</span></p>
-      <button onclick="addToCart(this)">Add to Cart</button>        
+      <button onclick="handleAddToCart(this)">Add to Cart</button>        
     </div>
 
     <div class="card">
@@ -441,7 +441,7 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">90</span></p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -474,7 +474,7 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">30</span></p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -507,7 +507,7 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">90</span></p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -540,171 +540,21 @@
         </select>
       </p>
       <p>Price: ₹<span class="priceDisplay">50</span></p>
-      <button onclick="addToCart(this)">Add to Cart</button>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
   </div>
-  
-<script>
-  const phone = '919996210141';
-
-  const cartIcon = document.querySelector('.cart-icon');
-  cartIcon.classList.add('animated');
-  setTimeout(() => cartIcon.classList.remove('animated'), 400);
-
-  let lastCartBackup = [];
-
-  function addToCart(button) {
-    const card = button.closest('.card');
-    const name = card.querySelector('h3').textContent;
-    const select = card.querySelector('select.sizeSelect');
-    const size = select.value;
-    const price = select.options[select.selectedIndex].getAttribute('data-price');
-    const qty = parseInt(card.querySelector('.qtySelect').value);
-  
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  
-    // ✅ Check if item with same name and size already exists
-    const isDuplicate = cart.some(item => item.name === name && item.size === size);
-    if (isDuplicate) {
-      showCartNotification(`${name} (Size ${size}) is already in cart.`);
-      return; // Stop from adding
+  <script src="cart.js"></script>
+  <script>
+    function handleAddToCart(button) {
+      const card = button.closest('.card');
+      const name = card.querySelector('h3').textContent;
+      const select = card.querySelector('select.sizeSelect');
+      const size = select.value;
+      const price = select.options[select.selectedIndex].getAttribute('data-price');
+      const qty = parseInt(card.querySelector('.qtySelect').value);
+      addToCart(name, size, parseFloat(price), qty);
     }
-  
-    // ✅ If not duplicate, add it
-    cart.push({ name, size, price, qty });
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    showCartNotification(`${name} (Size ${size}) added to cart!`);
-  }
-
-  function showCartNotification(message) {
-    const notification = document.getElementById('cartNotification');
-    notification.textContent = message;
-    notification.style.display = 'block';
-  
-    // Fade in
-    setTimeout(() => {
-      notification.style.opacity = '1';
-    }, 50);
-  
-    // Fade out after 2 seconds
-    setTimeout(() => {
-      notification.style.opacity = '0';
-    }, 2000);
-  
-    // Hide completely after animation ends
-    setTimeout(() => {
-      notification.style.display = 'none';
-    }, 2700);
-  }
-
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    document.getElementById('cartCount').textContent = cart.length;
-  }
-
-  function toggleCart() {
-    const popup = document.getElementById('cartPopup');
-    const itemsContainer = document.getElementById('cartItems');
-    const totalEl = document.getElementById('cartTotal');
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    itemsContainer.innerHTML = '';
-    let total = 0;
-
-    if (cart.length === 0) {
-      itemsContainer.innerHTML = '<li>Your cart is empty.</li>';
-      totalEl.textContent = '';
-      document.getElementById('checkoutLink').style.display = 'none';
-      document.getElementById('clearCartBtn').style.display = 'none';  // ✅ hide button
-    } else {
-      document.getElementById('checkoutLink').style.display = 'block';
-      document.getElementById('clearCartBtn').style.display = 'block';  // ✅ show button
-    let message = "Hi! I want to order the following items from Krishan Attire:%0A";
-
-    cart.forEach((item, i) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        ${item.name} (Size: ${item.size}, Qty: ${item.qty}) - ₹${item.price * item.qty}
-        <button onclick="removeFromCart(${i})" style="margin-left: 10px; background: red; color: white; border: none; padding: 2px 6px; cursor: pointer;">X</button>
-      `;
-      itemsContainer.appendChild(li);
-      message += `${i + 1}. ${item.name} (Size: ${item.size}, Qty: ${item.qty}) - ₹${item.price * item.qty}%0A`;
-      total += parseFloat(item.price) * item.qty;
-  });
-
-  const deliveryCharge = 150;
-  const grandTotal = total + deliveryCharge;
-  totalEl.innerHTML = `
-    Items Total: ₹${total}<br>
-    Delivery Charges: ₹${deliveryCharge}<br>
-    <strong>Grand Total: ₹${grandTotal}</strong>
-  `;
-  message += `%0AItems Total: ₹${total}%0ADelivery Charges: ₹${deliveryCharge}%0AGrand Total: ₹${grandTotal}`;
-  document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
-  }
-  popup.style.display = 'block';
-  }
-
-  function confirmClearCartAction() {
-    lastCartBackup = JSON.parse(localStorage.getItem('cart') || '[]');
-    localStorage.removeItem('cart');
-    updateCartCount();
-    toggleCart();
-    closeConfirmPopup();
-    showCartNotification("All items removed!");
-  
-    // ✅ Show Undo
-    document.getElementById('undoClearBtn').style.display = 'block';
-    setTimeout(() => {
-      document.getElementById('undoClearBtn').style.display = 'none';
-    }, 5000);
-  }
-
-  function confirmClearYes() {
-    localStorage.removeItem('cart');
-    updateCartCount();
-    closeConfirmPopup();
-    toggleCart(); // Refresh the popup
-    showCartNotification("All items removed!");
-  }
-  
-  function closeConfirmPopup() {
-    document.getElementById('confirmPopup').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-  }
-
-  function undoClearCart() {
-    if (lastCartBackup.length > 0) {
-      localStorage.setItem('cart', JSON.stringify(lastCartBackup));
-      updateCartCount();
-      toggleCart();
-      lastCartBackup = [];
-      document.getElementById('undoClearBtn').style.display = 'none';
-    }
-  }
-
-  function removeFromCart(index) {
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    cart.splice(index, 1); // Remove the item at the given index
-    localStorage.setItem('cart', JSON.stringify(cart));
-    toggleCart(); // Refresh the cart popup
-    updateCartCount();
-  }
-
-  function clearCart() {
-    // Show the confirmation popup with blur
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('confirmPopup').style.display = 'block';
-  }
-
-  function closeCart() {
-    document.getElementById('cartPopup').style.display = 'none';
-  }
-
-  updateCartCount();
-</script>
-
-
+  </script>
 </body>
 </html> 
