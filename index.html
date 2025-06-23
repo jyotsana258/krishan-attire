@@ -221,9 +221,13 @@
     <a href="shop.html">Shop</a>
     <a href="about.html">About</a>
   </nav> -->
+  
+  <script src="cart.js"></script>
+
   <header>
     <div class="center-logo">
       <img src="logo.png" alt="Krishan Attire Logo">
+      <i class="fas fa-shopping-cart" title="Cart"></i>
     </div>
   
     <div class="right-icons">
@@ -231,7 +235,28 @@
       <i class="fas fa-shopping-cart" title="Cart"></i>
     </div>
   </header>
+
+    <!-- CART POPUP (Shared Design) -->
+  <div id="cartPopup" style="display:none; position: fixed; top: 80px; right: 20px; width: 300px; background: white; color: black; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 999;">
+    <span id="closeCartBtn" style="float: right; cursor: pointer;" onclick="closeCart()">❌</span>
+    <strong>Your Cart:</strong>
+    <ul id="cartItems" style="list-style: none; padding-left: 0; max-height: 200px; overflow-y: auto;"></ul>
+    <div id="cartTotal" style="margin-top: 10px; font-weight: bold;"></div>
+    <a href="#" id="checkoutLink" target="_blank" style="display: block; background: green; color: white; padding: 8px 10px; border-radius: 4px; text-align: center; text-decoration: none; margin-top: 10px;">Buy on WhatsApp</a>
+    <div id="clearCartBtn" onclick="clearCart()" style="background: darkred; color: white; display: block; margin-top: 10px; padding: 8px 10px; border-radius: 4px; text-align: center; cursor: pointer;">Remove All Items</div>
+    <div id="undoClearBtn" onclick="undoClearCart()" style="display:none; background:#444; color:white; margin-top:10px; padding:8px 10px; border-radius:4px; cursor:pointer;">Undo Clear</div>
+  </div>
+  <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); z-index: 998;"></div>
   
+  <!-- Confirm Popup -->
+  <div id="confirmPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; color:black; padding:20px 30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:999;">
+    <p>Are you sure you want to remove all items from the cart?</p>
+    <div class="popup-buttons" style="margin-top: 15px; text-align:center;">
+      <button onclick="confirmClearCartAction()" style="background-color: darkred; color: white; padding: 8px 15px; border: none; border-radius: 6px; margin-right: 10px;">Yes</button>
+      <button onclick="closeConfirmPopup()" style="background-color: gray; color: white; padding: 8px 15px; border: none; border-radius: 6px;">Cancel</button>
+    </div>
+  </div>
+
   <!-- HERO SLIDER -->
   <div class="slider">
     <div class="slides">
@@ -361,6 +386,15 @@
   <a href="https://wa.me/919996210141" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
     💬
   </a>
-
+  
+  <script>
+    // Wait until DOM is ready and load cart from localStorage
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof loadCartFromStorage === 'function') {
+        loadCartFromStorage();
+      }
+    });
+  </script>
+  
 </body>
 </html>
