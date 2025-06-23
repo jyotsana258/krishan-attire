@@ -629,8 +629,15 @@
       total += parseFloat(item.price) * item.qty;
   });
 
-  totalEl.textContent = `Total: ₹${total}`;
-    document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
+  const deliveryCharge = 150;
+  const grandTotal = total + deliveryCharge;
+  totalEl.innerHTML = `
+    Items Total: ₹${total}<br>
+    Delivery Charges: ₹${deliveryCharge}<br>
+    <strong>Grand Total: ₹${grandTotal}</strong>
+  `;
+  message += `%0AItems Total: ₹${total}%0ADelivery Charges: ₹${deliveryCharge}%0AGrand Total: ₹${grandTotal}`;
+  document.getElementById('checkoutLink').href = `https://wa.me/${phone}?text=${message}`;
   }
   popup.style.display = 'block';
   }
@@ -685,15 +692,6 @@
     // Show the confirmation popup with blur
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('confirmPopup').style.display = 'block';
-  }
-  
-  function confirmClearCartAction() {
-    // Clear the cart when user confirms
-    localStorage.removeItem('cart');
-    updateCartCount();
-    toggleCart();
-    closeConfirmPopup();
-    showCartNotification("All items removed!");
   }
 
   function closeCart() {
