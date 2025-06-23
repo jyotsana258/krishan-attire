@@ -14,9 +14,15 @@
     }
 
     header {
-      text-align: center;
-      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
       background-color: #112244;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* This centers all content horizontally */
+      position: relative; /* important for positioning cart icon */
     }
 
     h1 {
@@ -115,10 +121,217 @@
       padding: 8px 12px;
       border-radius: 6px;
       transition: background 0.3s;
+      z-index: 1000
     }
 
     a.back-link:hover {
       background: rgba(255, 255, 255, 0.2);
+    }
+
+    .cart-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+
+    .cart-icon.animated {
+      animation: bounce 0.4s ease;
+    }
+    
+    @keyframes bounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+      100% { transform: scale(1); }
+    }
+
+    #cartNotification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: gold;
+      color: #0b1d36;
+      padding: 15px 25px;
+      font-weight: bold;
+      border-radius: 10px;
+      display: none;
+      z-index: 9999;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    
+    @keyframes fadePopup {
+      0% { opacity: 0; transform: translate(-50%, -60%); }
+      50% { opacity: 1; transform: translate(-50%, -50%); }
+      100% { opacity: 0; transform: translate(-50%, -40%); }
+    }
+    
+    #closeCartBtn {
+      position: sticky;
+      top: 0;
+      right: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      color: #333;
+      background: white;
+    }
+    
+    #closeCartBtn:hover {
+      color: darkred;
+    }
+    
+    #cartPopup {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      color: black;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+
+    #cartPopup ul {
+      list-style: none;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    #cartPopup li {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    #cartPopup a {
+      display: block;
+      margin-top: 10px;
+      background: green;
+      color: white;
+      padding: 8px 10px;
+      border-radius: 4px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    #clearCartBtn {
+      background: darkred;
+      color: white;
+      display: block;
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      z-index: 998;
+      display: none;
+    }
+    
+    #confirmPopup {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      color: black;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 999;
+      display: none;
+      text-align: center;
+      max-width: 300px;
+    }
+    
+    .popup-buttons {
+      margin-top: 15px;
+    }
+    
+    .popup-buttons button {
+      margin: 0 10px;
+      padding: 8px 15px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    
+    .popup-buttons button:first-child {
+      background-color: darkred;
+      color: white;
+    }
+    
+    .popup-buttons button:last-child {
+      background-color: gray;
+      color: white;
+    }
+
+    #confirmPopup .popup-content {
+      background: white;
+      color: black;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    .popup-buttons {
+      margin-top: 15px;
+    }
+    
+    .popup-buttons button {
+      margin: 0 10px;
+      padding: 8px 15px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    
+    .popup-buttons button:first-child {
+      background-color: darkred;
+      color: white;
+    }
+    
+    .popup-buttons button:last-child {
+      background-color: gray;
+      color: white;
+    }
+
+    button {
+      background-color: gold;
+      color: #0b1d36;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -126,9 +339,37 @@
 
   <header>
     <h1>CHANDRIKA</h1>
+    <div class="cart-icon" onclick="toggleCart()">
+      <i class="fas fa-shopping-cart"></i> <span class="cart-count" id="cartCount">0</span>
+    </div>
   </header>
 
   <a href="index.html" class="back-link">←</a>
+
+  <div id="cartNotification">Added to Cart!</div>
+
+  <!-- Cart Popup -->
+  <div id="cartPopup">
+    <span id="closeCartBtn" onclick="closeCart()">❌</span>
+    <strong>Your Cart:</strong>
+    <ul id="cartItems"></ul>
+    <div id="cartTotal" style="margin-top: 10px; font-weight: bold;"></div>
+    <a href="#" id="checkoutLink" target="_blank">Buy on WhatsApp</a>
+    <div id="clearCartBtn" onclick="clearCart()">Remove All Items</div>
+    <div id="undoClearBtn" onclick="undoClearCart()" style="display:none; background:#444; color:white; margin-top:10px; padding:8px 10px; border-radius:4px; cursor:pointer;">Undo Clear</div>
+  </div>
+
+  <div id="overlay"></div>
+  <!-- Custom Confirm Popup -->
+  <div id="confirmPopup">
+    <div class="popup-content">
+      <p>Are you sure you want to remove all items from the cart?</p>
+      <div class="popup-buttons">
+        <button onclick="confirmClearCartAction()">Yes</button>
+        <button onclick="closeConfirmPopup()">Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <div class="grid">
     <div class="card">
@@ -142,10 +383,18 @@
           <option value="large" data-price="350">large</option>        
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay"150</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -159,10 +408,18 @@
           <option value="large" data-price="380">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">180</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -176,10 +433,18 @@
           <option value="large" data-price="300">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">100</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -193,10 +458,18 @@
           <option value="large" data-price="330">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">110</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -210,10 +483,18 @@
           <option value="large" data-price="330">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">130</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -227,10 +508,18 @@
           <option value="large" data-price="320">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">120</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -244,10 +533,18 @@
           <option value="large" data-price="300">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">100</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -261,10 +558,18 @@
           <option value="large" data-price="340">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">130</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -278,10 +583,18 @@
           <option value="large" data-price="300">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">100</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
 
     <div class="card">
@@ -295,10 +608,18 @@
           <option value="large" data-price="300">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">100</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
     
     <div class="card">
@@ -312,42 +633,33 @@
           <option value="large" data-price="350">large</option>          
         </select>
       </p>
+      <p>
+        Quantity:
+        <select class="qtyselect">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </p>
       <p>Price: ₹<span class="priceDisplay">150</span></p>
-      <a class="buyBtn" href="#" target="_blank" style="background: green; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-        Buy on WhatsApp
-      </a>
+      <button onclick="handleAddToCart(this)">Add to Cart</button>
     </div>
   </div>
   
-<script>
-// Your WhatsApp phone number (with country code, no + sign)
-const phone = '919996210141';
-
-// For each card, update price and WhatsApp link when size changes
-document.querySelectorAll('.card').forEach(card => {
-  const select = card.querySelector('.sizeSelect');
-  const priceDisplay = card.querySelector('.priceDisplay');
-  const buyBtn = card.querySelector('.buyBtn');
-  const chandrikaName = card.querySelector('h3').textContent.trim();
-
-  function update() {
-    const selectedOption = select.options[select.selectedIndex];
-    const price = selectedOption.getAttribute('data-price');
-    const size = select.value;
-
-    priceDisplay.textContent = price;
-
-    const text = encodeURIComponent(`Hi! I want to buy the ${chandrikaName} size ${size} for ₹${price} from Krishan Attire.`);
-    buyBtn.href = `https://wa.me/${phone}?text=${text}`;
-  }
-
-  // Initialize button on page load
-  update();
-
-  // Update when user changes size
-  select.addEventListener('change', update);
-});
-</script>
+  <script src="cart.js"></script>
+  <script>
+    function handleAddToCart(button) {
+      const card = button.closest('.card');
+      const name = card.querySelector('h3').textContent;
+      const select = card.querySelector('select.sizeSelect');
+      const size = select.value;
+      const price = select.options[select.selectedIndex].getAttribute('data-price');
+      const qty = parseInt(card.querySelector('.qtySelect').value);
+      addToCart(name, size, parseFloat(price), qty);
+    }
+  </script>
 
 </body>
 </html> 
