@@ -660,6 +660,8 @@
       const qty = parseInt(card.querySelector('.qtySelect').value);
       addToCart(name, size, parseFloat(price), qty);
     }
+
+    document.addEventListener("DOMContentLoaded", updateCartCount);
   </script>
 
 </body>
