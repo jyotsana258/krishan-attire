@@ -22,32 +22,35 @@
       align-items: center;
       background-color: #0e1c2f;
       border-bottom: 2px solid gold;
+      height: 100px;
       padding: 0 20px;
-      height: 90px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
-
-/*     left-space {
-      flex: 1;
-    } */
+    
+    .left-space {
+      width: 80px; /* Keeps space symmetrical */
+    }
     
     .center-logo {
-      line-height: 1;
-      
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
     
     .center-logo img {
-      height: 80px;
-      object-fit: contain;
-      display: inline-block;
+      height: 80px; /* Increase for bigger logo */
+      display: block;
       margin: 0;
-      padding: 0; 
+      padding: 0;
     }
     
     .right-icons {
-      flex-basis: 80px;
+      width: 80px;
       display: flex;
       justify-content: flex-end;
+      align-items: center;
       gap: 20px;
     }
 
@@ -220,6 +223,7 @@
   <script src="cart.js"></script>
 
   <header>
+    <div class="left-space"></div>
     <div class="center-logo">
       <img src="logo.png" alt="Krishan Attire Logo">
     </div>
