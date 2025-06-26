@@ -137,4 +137,35 @@ function showCartNotification(message) {
   }, 2700);
 }
 
+function updateCartDisplay() {
+  const cartItemsList = document.getElementById("cartItems");
+  const cartTotalDiv = document.getElementById("cartTotal");
+  const checkoutLink = document.getElementById("checkoutLink");
+
+  if (!cartItemsList || !cartTotalDiv || !checkoutLink) return;
+
+  cartItemsList.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} (Size: ${item.size}) × ${item.qty} = ₹${item.price * item.qty}`;
+    cartItemsList.appendChild(li);
+    total += item.price * item.qty;
+  });
+
+  cartTotalDiv.textContent = `Total: ₹${total}`;
+
+  const message = cart.map(item =>
+    `${item.name} (${item.size}) x${item.qty} - ₹${item.price * item.qty}`
+  ).join('%0A');
+
+  checkoutLink.href = `https://wa.me/919996210141?text=Order%20details:%0A${message}%0ATotal:%20₹${total}`;
+}
+
 document.addEventListener("DOMContentLoaded", updateCartCount);
+
+function loadCartFromStorage() {
+  cart = getCart();             // Load from localStorage
+  updateCartDisplay();          // Update the popup display
+}
