@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishan Attire - Catalog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="container header-container">
+        <h1>Krishan Attire</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#shop">Shop</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Category Filters -->
+<section id="filters" class="container">
+    <button onclick="filterProducts('all')">All</button>
+    <button onclick="filterProducts('deity')">Deity Dress</button>
+    <button onclick="filterProducts('jewelry')">Jewelry</button>
+    <button onclick="filterProducts('pagdi')">Pagdi</button>
+    <button onclick="filterProducts('accessory')">Accessories</button>
+    <button onclick="filterProducts('summer')">Summer Dress</button>
+    <button onclick="filterProducts('winter')">Winter Dress</button>
+    <button onclick="filterProducts('occasional')">Occasional Dress</button>
+</section>
+
+<!-- Product Grid -->
+<section id="shop" class="container">
+    <div class="product-grid">
+
+        <!-- Example Product -->
+        <div class="product deity">
+            <img src="images/deity1.jpg" alt="Deity Dress 1">
+            <h3>Deity Dress 1</h3>
+            <label>Select Size:</label>
+            <select onchange="updatePrice('dress1', this)">
+                <option value="0-250">0 - ₹250</option>
+                <option value="1-250">1 - ₹250</option>
+                <option value="2-300">2 - ₹300</option>
+                <option value="3-360">3 - ₹360</option>
+            </select>
+            <p class="price">Price: ₹250</p>
+            <a class="whatsapp-btn" href="https://wa.me/91YOURNUMBER?text=Hi%20I%20want%20to%20order%20Deity%20Dress%201%20Size%200%20Price%20₹250" target="_blank">Order on WhatsApp</a>
+        </div>
+
+        <!-- Add more products here like above -->
+        
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="container">
+    <h2>Contact / Order</h2>
+    <p>Click any product's WhatsApp button or contact us directly:</p>
+    <a class="whatsapp-btn" href="https://wa.me/91YOURNUMBER?text=Hi%20I%20want%20to%20order" target="_blank">Contact on WhatsApp</a>
+</section>
+
+<!-- JS for filters and price update -->
+<script>
+// Filter products by category
+function filterProducts(category) {
+    let products = document.querySelectorAll('.product');
+    products.forEach(p => {
+        if(category === 'all' || p.classList.contains(category)) {
+            p.style.display = 'block';
+        } else {
+            p.style.display = 'none';
+        }
+    });
+}
+
+// Update price and WhatsApp link dynamically
+function updatePrice(productId, selectElement) {
+    let value = selectElement.value.split('-');
+    let size = value[0];
+    let price = value[1];
+
+    let productDiv = selectElement.closest('.product');
+    productDiv.querySelector('.price').innerText = 'Price: ₹' + price;
+
+    let name = productDiv.querySelector('h3').innerText;
+    let whatsapp = productDiv.querySelector('.whatsapp-btn');
+    whatsapp.href = 'https://wa.me/91YOURNUMBER?text=Hi%20I%20want%20to%20order%20' + encodeURIComponent(name) + '%20Size%20' + size + '%20Price%20₹' + price;
+}
+</script>
+
+</body>
+</html>
