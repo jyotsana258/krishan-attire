@@ -1,397 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Krishan Attire</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Playfair Display', serif;
-      background-color: #0e1c2f;
-      color: #f9e4b7;
-      padding-top: 0;
-    }
-
-    .main-header {
-      background-color: #0e1c2f;
-      border-bottom: 2px solid gold;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-/*       padding: 0 20px; */
-    }
-    
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 100px;
-      max-width: 1200px;
-      margin: auto;
-      padding-bottom: 0;
-      padding-top: 0;
-      position: relative;
-    }
-    
-    .center-logo {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    
-    .center-logo img {
-      height: 140px;
-      object-fit: contain;
-      margin: 0;
-      padding: 0;
-      display: block;
-    }
-    
-    .right-icons {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-    
-    .right-icons i {
-      color: #ffd700;
-      font-size: 24px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    
-    .right-icons i:hover {
-      transform: scale(1.2);
-    }
-
-    .slider {
-      position: relative;
-      width: 100vw;
-      max-width: 100%;
-      overflow: hidden;
-      height: 90vh;
-    }
-
-    .slides {
-      display: flex;
-      width: 300%;
-      animation: slide 15s infinite;
-      transition: transform 2s ease-in-out;
-    }
-
-    .slides img {
-      width: 100vw;
-      height: 90vh;
-      object-fit: cover;
-    }
-
-    @keyframes slide {
-      0% { transform: translateX(0); }
-      33% { transform: translateX(-100vw); }
-      66% { transform: translateX(-200vw); }
-      100% { transform: translateX(0); }
-    }
-
-    .hero-text {
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -30%);
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 40px;
-      border: 2px solid #d4af37;
-      border-radius: 15px;
-      text-align: center;
-    }
-
-    .hero-text h1 {
-      font-size: 48px;
-      color: #ffd700;
-    }
-
-    .hero-text p {
-      font-size: 20px;
-    }
-
-    .section {
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .section h2 {
-      font-size: 36px;
-      margin-bottom: 30px;
-      color: #ffd700;
-    }
-
-    .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .category-box {
-      flex: 1 1 23%;
-      width: 200px;
-      height: 200px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 10px;
-      position: relative;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .category-box:hover {
-      transform: scale(1.05);
-    }
-
-    .category-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .category-name {
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 0 8px;
-    }
-
-    @media (max-width: 768px) {
-      .category-box {
-        flex: 1 1 48%;
-        aspect-ratio: 1 / 1;
-      }
-
-      .category-name {
-        font-size: 14px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .category-box {
-        flex: 1 1 100%;
-        aspect-ratio: 1 / 1;
-      }
-    }
-
-    .about {
-      max-width: 700px;
-      margin: auto;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      color: white;
-      border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-decoration: none;
-      font-size: 28px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishan Attire</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-  
 <body>
-  <!-- NAVIGATION -->
-<!--   <nav>
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="about.html">About</a>
-  </nav> -->
-  
-  <script src="cart.js"></script>
 
-  <header class="main-header">
-  <div class="header-inner">
-    <div class="left-spacer"></div>
-
-    <div class="center-logo">
-      <img src="logo.png" alt="Krishan Attire Logo" />
+<!-- Header -->
+<header>
+    <div class="container header-container">
+        <h1>Krishan Attire</h1>
+        <nav>
+            <a href="#shop">Shop</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </div>
-
-    <div class="right-icons">
-      <i class="fas fa-search" title="Search"></i>
-      <i class="fas fa-shopping-cart" title="Cart"></i>
-    </div>
-  </div>
 </header>
 
-    <!-- CART POPUP (Shared Design) -->
-  <div id="cartPopup" style="display:none; position: fixed; top: 80px; right: 20px; width: 300px; background: white; color: black; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 999;">
-    <span id="closeCartBtn" style="float: right; cursor: pointer;" onclick="closeCart()">❌</span>
-    <strong>Your Cart:</strong>
-    <ul id="cartItems" style="list-style: none; padding-left: 0; max-height: 200px; overflow-y: auto;"></ul>
-    <div id="cartTotal" style="margin-top: 10px; font-weight: bold;"></div>
-    <a href="#" id="checkoutLink" target="_blank" style="display: block; background: green; color: white; padding: 8px 10px; border-radius: 4px; text-align: center; text-decoration: none; margin-top: 10px;">Buy on WhatsApp</a>
-    <div id="clearCartBtn" onclick="clearCart()" style="background: darkred; color: white; display: block; margin-top: 10px; padding: 8px 10px; border-radius: 4px; text-align: center; cursor: pointer;">Remove All Items</div>
-    <div id="undoClearBtn" onclick="undoClearCart()" style="display:none; background:#444; color:white; margin-top:10px; padding:8px 10px; border-radius:4px; cursor:pointer;">Undo Clear</div>
-  </div>
-  <div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); z-index: 998;"></div>
-  
-  <!-- Confirm Popup -->
-  <div id="confirmPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; color:black; padding:20px 30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:999;">
-    <p>Are you sure you want to remove all items from the cart?</p>
-    <div class="popup-buttons" style="margin-top: 15px; text-align:center;">
-      <button onclick="confirmClearCartAction()" style="background-color: darkred; color: white; padding: 8px 15px; border: none; border-radius: 6px; margin-right: 10px;">Yes</button>
-      <button onclick="closeConfirmPopup()" style="background-color: gray; color: white; padding: 8px 15px; border: none; border-radius: 6px;">Cancel</button>
+<!-- Hero Section -->
+<section id="hero">
+    <div class="container hero-container">
+        <h2>Premium Handmade Deity Dresses & Accessories</h2>
+        <p>Traditional, Devotional & Elegant</p>
+        <a class="cta-btn" href="#shop">Shop Now</a>
     </div>
-  </div>
-  
-  <!-- HERO SLIDER -->
-  <div class="slider">
-    <div class="slides">
-      <img src="hero1.png" alt="Dress Image 1">
-      <img src="hero2.png" alt="Dress Image 2">
-      <img src="hero3.png" alt="Dress Image 3">
+</section>
+
+<!-- Product Grid -->
+<section id="shop">
+    <div class="container">
+        <h2>Our Collection</h2>
+        <div class="product-grid">
+
+            <!-- Product Example -->
+            <div class="product">
+                <img src="images/deity1.jpg" alt="Deity Dress 1">
+                <h3>Deity Dress 1</h3>
+                <p>Price: ₹599</p>
+                <a class="whatsapp-btn" href="https://wa.me/91YOURNUMBER?text=Hi%20I%20want%20to%20order%20Deity%20Dress%201" target="_blank">Order on WhatsApp</a>
+            </div>
+
+            <div class="product">
+                <img src="images/jewelry1.jpg" alt="Jewelry Set 1">
+                <h3>Jewelry Set 1</h3>
+                <p>Price: ₹1200</p>
+                <a class="whatsapp-btn" href="https://wa.me/91YOURNUMBER?text=Hi%20I%20want%20to%20order%20Jewelry%20Set%201" target="_blank">Order on WhatsApp</a>
+            </div>
+
+            <div class="product">
+                <img src="images/pagdi1.jpg" alt="Pagdi 1">
+                <h3>Pagdi 1</h3>
+                <p>Price: ₹250</p>
+                <a class="whatsapp-btn" href="https://wa.me/91YOURNUMBER?text=Hi%20I%20want%20to%20order%20Pagdi%201" target="_blank">Order on WhatsApp</a>
+            </div>
+
+            <!-- Copy above div to add more products -->
+
+        </div>
     </div>
-    <div class="hero-text">
-      <h1>Exquisite Dresses for God Idols</h1>
-      <p>Where tradition meets elegance — handcrafted with devotion.</p>
+</section>
+
+<!-- About Section -->
+<section id="about">
+    <div class="container">
+        <h2>About Us</h2>
+        <p>Krishan Attire offers premium handmade deity dresses, jewelry, pagdi, and accessories with devotion and tradition. We cater to customers in India and internationally.</p>
     </div>
-  </div>
-  
-  <!-- CATEGORY SECTION -->
-  <div class="section">
-    <h2>Featured Products</h2>
-    <div class="product-grid">
-      <a href="dress.html" class="category-link">
-        <div class="category-box" style="background-image: url('dress.jpeg');">
-          <div class="category-name">DRESSES</div>
-        </div>
-      </a>
-  
-      <a href="kalangi.html" class="category-link">
-        <div class="category-box" style="background-image: url('kalangi.jpeg');">
-          <div class="category-name">HANDMADE KALANGI</div>
-        </div>
-      </a>
-  
-      <a href="pagdi.html" class="category-link">
-        <div class="category-box" style="background-image: url('pagdi.jpeg');">
-          <div class="category-name">PAGDI</div>
-        </div>
-      </a>
-  
-      <a href="pankhi.html" class="category-link">
-        <div class="category-box" style="background-image: url('pankhi.jpeg');">
-          <div class="category-name">HANDMADE PANKHI</div>
-        </div>
-      </a>
-  
-      <a href="hair.html" class="category-link">
-        <div class="category-box" style="background-image: url('hair.jpeg');">
-          <div class="category-name">HAIRS</div>
-        </div>
-      </a>
-  
-      <a href="chandrika.html" class="category-link">
-        <div class="category-box" style="background-image: url('chandrika.jpeg');">
-          <div class="category-name">HANDMADE CHANDRIKA</div>
-        </div>
-      </a>
-  
-      <a href="bansuri.html" class="category-link">
-        <div class="category-box" style="background-image: url('bansuri.jpeg');">
-          <div class="category-name">HANDMADE BANSURI</div>
-        </div>
-      </a>
-  
-      <a href="morchadi.html" class="category-link">
-        <div class="category-box" style="background-image: url('morchadi.jpeg');">
-          <div class="category-name">MORCHADI</div>
-        </div>
-      </a>
-  
-      <a href="decor.html" class="category-link">
-        <div class="category-box" style="background-image: url('decor.jpeg');">
-          <div class="category-name">DECOR</div>
-        </div>
-      </a>
-  
-      <a href="jwellery.html" class="category-link">
-        <div class="category-box" style="background-image: url('jwellery.jpeg');">
-          <div class="category-name">JWELLERY</div>
-        </div>
-      </a>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <div class="container">
+        <h2>Contact / Order</h2>
+        <p>To place an order, click any product's WhatsApp button or contact us directly:</p>
+        <a class="whatsapp-btn" href="https://wa.me/91YOURNUMBER?text=Hi%20I%20want%20to%20order" target="_blank">Contact on WhatsApp</a>
     </div>
-  </div>
-  <!-- SEARCH POPUP -->
-  <div id="searchPopup" style="display:none; position: fixed; top: 80px; right: 20px; background: #fff3e0; padding: 10px 15px; border: 1px solid gold; border-radius: 8px; z-index: 100;">
-  <input type="text" placeholder="Search products..." style="padding: 6px 10px; width: 200px; border: 1px solid #ccc; border-radius: 4px;">
-  </div>
-  
-  <script>
-  const searchIcon = document.querySelector(".fa-search");
-  const cartIcon = document.querySelector(".fa-shopping-cart");
-  const searchPopup = document.getElementById("searchPopup");
-  const cartPopup = document.getElementById("cartPopup");
-  
-  // Toggle search popup
-  searchIcon.addEventListener("click", () => {
-    searchPopup.style.display = searchPopup.style.display === "none" ? "block" : "none";
-    cartPopup.style.display = "none"; // Hide cart if open
-  });
-  
-  // Toggle cart popup
-  cartIcon.addEventListener("click", () => {
-    cartPopup.style.display = cartPopup.style.display === "none" ? "block" : "none";
-    searchPopup.style.display = "none"; // Hide search if open
-  });
-  
-  // Close popups if clicked outside
-  window.addEventListener("click", (e) => {
-    if (!e.target.closest('.fa-search') && !e.target.closest('#searchPopup')) {
-      searchPopup.style.display = "none";
-    }
-    if (!e.target.closest('.fa-shopping-cart') && !e.target.closest('#cartPopup')) {
-      cartPopup.style.display = "none";
-    }
-  });
-  </script>
-  
-  <!-- ABOUT US -->
-  <div class="section">
-    <h2>About Us</h2>
-    <div class="about">
-      <strong>Krishan Attire</strong> is a humble offering of love and devotion to <strong>Thakur Ji</strong>. Every dress is crafted with care, beauty, and spiritual intention. From hand embroidery to vibrant colors, our mission is to bring joy to your pooja rituals.
-    </div>
-  </div>
-  
-  <!-- WHATSAPP FLOATING ICON -->
-  <a href="https://wa.me/919996210141" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
-    💬
-  </a>
-  
-  <script>
-    // Wait until DOM is ready and load cart from localStorage
-    document.addEventListener("DOMContentLoaded", function () {
-      if (typeof loadCartFromStorage === 'function') {
-        loadCartFromStorage();
-      }
-    });
-  </script>
-  
+</section>
+
 </body>
 </html>
