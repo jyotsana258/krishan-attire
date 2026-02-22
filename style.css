@@ -1,0 +1,140 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+/* Header */
+header {
+    background: #f8e1f7;
+    padding: 20px 0;
+}
+
+header h1 {
+    margin: 0;
+    display: inline-block;
+    color: #7b1fa2;
+}
+
+header nav {
+    float: right;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    color: #7b1fa2;
+}
+
+/* Hero */
+#hero {
+    background: #fdeff7 url('images/hero-banner.jpg') center/cover no-repeat;
+    color: #7b1fa2;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+#hero h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.cta-btn {
+    display: inline-block;
+    background: #7b1fa2;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.cta-btn:hover {
+    background: #5a137a;
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.product {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.product:hover {
+    transform: scale(1.03);
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product h3 {
+    margin: 10px 0 5px;
+}
+
+.product p {
+    margin: 5px 0;
+}
+
+/* Size Dropdown */
+select {
+    padding: 5px 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* WhatsApp Button */
+.whatsapp-btn {
+    display: inline-block;
+    background: #25d366;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.whatsapp-btn:hover {
+    background: #1ebe57;
+}
+
+/* About & Contact */
+#about, #contact {
+    background: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#about p, #contact p {
+    max-width: 700px;
+    margin: auto;
+    line-height: 1.6;
+}
